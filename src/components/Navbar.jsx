@@ -1,5 +1,15 @@
 import { NavLink } from 'react-router-dom';
+import useAuth from '../contexts/AuthContext';
+import { removeItemFromLocalStorage } from '../utils/shared';
+
 function Navbar() {
+  const { auth, setAuth } = useAuth();
+
+  const handleLogout = () => {
+    setAuth(null);
+    removeItemFromLocalStorage('access_token');
+  };
+
   return (
     <nav className="mb-8">
       <div className="bg-neutral text-neutral-content">
@@ -14,6 +24,11 @@ function Navbar() {
             <div className="btn btn-ghost text-xl">
               <NavLink to={'/create'}>Create event</NavLink>
             </div>
+            {auth && (
+              <div onClick={handleLogout} className="btn btn-ghost text-xl">
+                <NavLink to={'/login'}>Logout</NavLink>
+              </div>
+            )}
           </div>
         </nav>
       </div>

@@ -1,14 +1,39 @@
 // functions which can be re-used across the project,
 // such as add / remove from the local storage
 
-// Create function to login using some existing credentials
+export const getItemFromLocalStorage = (item) => {
+  return JSON.parse(localStorage.getItem(item)) || [];
+};
 
-// this can be re-used in a contexts component,
-// to share the bearer totken
+export const addToLocalStorage = (existingItem, newData) => {
+  const updatedLocalStorage = [...getItemFromLocalStorage(existingItem), newData];
+  localStorage.setItem(existingItem, JSON.stringify(updatedLocalStorage));
+};
 
-// email
-// :
-// "alice@example.com"
-// password
-// :
-// "12345678"
+export const removeItemFromLocalStorage = (item) => {
+  localStorage.removeItem(item);
+};
+
+export const login = async (email, pass) => {
+  try {
+    const res = await fetch('http://localhost:3001/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: pass,
+      }),
+    });
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.error('Login failed:', err);
+    throw err;
+  }
+};
