@@ -37,3 +37,33 @@ export const login = async (email, pass) => {
     throw err;
   }
 };
+
+export const checkUserEmail = async (email) => {
+  const res = await fetch('http://localhost:3001/api/users');
+
+  if (!res.ok) {
+    throw new Error('Could not fetch users.');
+  }
+
+  const data = await res.json();
+  console.log(data);
+  console.log(data.results);
+  const results = data.results;
+
+  const emailExists = results.find((result) => result.email === email);
+  if (emailExists) {
+    throw new Error('A user with this email already exists');
+  } else {
+    console.log('The checked user does not exist yet in the DB');
+  }
+
+  return true;
+};
+
+export const compareStrings = (a, b) => {
+  if (a === b) {
+    return true;
+  } else {
+    return false;
+  }
+};

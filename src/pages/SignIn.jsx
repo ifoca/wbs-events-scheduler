@@ -26,12 +26,13 @@ const SignIn = () => {
 
   return (
     <div>
+      <h1 className="text-center text-4xl">Sign In</h1>
       {auth ? (
         <div className="flex flex-col gap-8 items-center m-4 p-4">
           <div>
-            <p className="font-normal text-lg">You are already logged in</p>
+            <p className="font-normal text-lg">You are already logged in.</p>
           </div>
-          <button className="btn bg-primary p-2" onClick={() => navigate('/')}>
+          <button className="btn bg-neutral-content p-4" onClick={() => navigate('/')}>
             Go to homepage
           </button>
         </div>
@@ -53,8 +54,8 @@ const SignIn = () => {
             id="password"
             required
           ></input>
-          <button className="btn btn-ghost" type="submit">
-            Login
+          <button className="btn bg-neutral-content p-4" type="submit">
+            Log in
           </button>
         </form>
       )}
