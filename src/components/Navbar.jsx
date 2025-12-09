@@ -11,29 +11,36 @@ function Navbar() {
   };
 
   return (
-    <nav className="mb-8">
-      <div className="bg-neutral text-neutral-content">
-        <nav className="flex navbar navbar-center">
-          <div className="px-8 mr-auto text-xl">
-            <NavLink to={'/'}>Logo</NavLink>
+    <header className="py-6 border-b border-gray-300 font-serif">
+      <nav className="flex navbar navbar-center">
+        <div className="px-8 mr-auto text-black text-4xl font-serif">
+          <NavLink to={'/'}>Event Scheduler</NavLink>
+        </div>
+        <div className="flex content-end">
+          <div className="btn btn-ghost text-lg">
+            <NavLink to={'/'}>Homepage</NavLink>
           </div>
-          <div className="flex content-end">
-            <div className="btn btn-ghost text-xl">
-              <NavLink to={'/'}>Homepage</NavLink>
-            </div>
-            <div className="btn btn-ghost text-xl">
-              <NavLink to={'/create'}>Create event</NavLink>
-            </div>
-            {auth && (
-              <div onClick={handleLogout} className="btn btn-ghost text-xl">
+          <div className="btn btn-ghost text-lg">
+            <NavLink to={'/login'}>Sign In</NavLink>
+          </div>
+          <div className="btn btn-ghost text-lg">
+            <NavLink to={'/register'}>Sign In</NavLink>
+          </div>
+          {auth && (
+            <>
+              <div className="btn btn-ghost text-lg">
+                <NavLink to={'/create'}>Create event</NavLink>
+              </div>
+              <div onClick={handleLogout} className="btn btn-ghost text-lg">
                 <NavLink to={'/login'}>Logout</NavLink>
               </div>
-            )}
-          </div>
-        </nav>
-      </div>
-    </nav>
+            </>
+          )}
+        </div>
+      </nav>
+    </header>
   );
 }
+// <h1 className="text-black text-4xl font-serif text-center col-start-2">Event Scheduler</h1>
 
 export default Navbar;
