@@ -52,7 +52,7 @@ function SignUp() {
           <div>
             <p className="font-normal text-lg">You are already logged in.</p>
           </div>
-          <button className="btn bg-neutral-content p-4" onClick={() => navigate('/')}>
+          <button className="btn p-4" onClick={() => navigate('/')}>
             Go to homepage
           </button>
         </div>
