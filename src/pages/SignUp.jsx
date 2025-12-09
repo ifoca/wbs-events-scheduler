@@ -82,7 +82,7 @@ function SignUp() {
             className="p-2 border"
             required
           ></input>
-          <button className="btn bg-neutral-content p-4" type="submit">
+          <button className="btn p-4" type="submit">
             Register user
           </button>
         </form>
