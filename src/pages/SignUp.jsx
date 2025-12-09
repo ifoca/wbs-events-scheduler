@@ -39,11 +39,15 @@ function SignUp() {
     <div>
       <h1 className="text-center text-4xl">Sign Un</h1>
 
-      {error && (
+      {error ? (
         <div className="m-auto w-2/3">
           <p className="text-center text-red-400 text-lg p-2 mt-4 border border-red-200">
             There was an error: {error}
           </p>
+        </div>
+      ) : (
+        <div className="w-2/3 items-center m-auto">
+          <p className="text-center text-lg p-2 mt-4">Create an account to add new events.</p>
         </div>
       )}
 

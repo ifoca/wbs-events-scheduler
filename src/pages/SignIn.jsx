@@ -37,7 +37,7 @@ const SignIn = () => {
         </div>
       ) : (
         <div className="w-2/3 items-center m-auto">
-          <p className="text-center text-lg p-2 mt-4">Create an account to manage your events.</p>
+          <p className="text-center text-lg p-2 mt-4">Log in to manage events creation.</p>
         </div>
       )}
       {auth ? (
