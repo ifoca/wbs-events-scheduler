@@ -8,24 +8,27 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import CreateEvent from './pages/CreateEvent';
 import EventDetails from './pages/EventDetails';
+import AuthState from './contexts/AuthState';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
-            <Route path="event/:id" element={<EventDetails />} />
-            <Route path="login" element={<SignIn />} />
-            <Route path="register" element={<SignUp />} />
-            <Route path="create" element={<CreateEvent />} />
-            <Route path="*" element={<ErrorPage />} />
-          </Route>
-        </Routes>
-        <Footer />
-      </div>
+      <AuthState>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route index element={<Home />} />
+              <Route path="event/:id" element={<EventDetails />} />
+              <Route path="login" element={<SignIn />} />
+              <Route path="register" element={<SignUp />} />
+              <Route path="create" element={<CreateEvent />} />
+              <Route path="*" element={<ErrorPage />} />
+            </Route>
+          </Routes>
+          <Footer />
+        </div>
+      </AuthState>
     </BrowserRouter>
   );
 }
