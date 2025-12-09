@@ -1,11 +1,11 @@
 import EventCard from './EventCard';
-function EventsList() {
+
+function EventsList({ events }) {
   return (
-    <div>
-      <p>Hello from the Events List</p>
-      {/* We should get as a prop a list of all the events and use 
-      the map method to create a card for each event */}
-      <EventCard />
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      {events.map(event => (
+        <EventCard key={event.id} event={event} />
+      ))}
     </div>
   );
 }
