@@ -45,6 +45,5 @@ function Navbar() {
     </header>
   );
 }
-// <h1 className="text-black text-4xl font-serif text-center col-start-2">Event Scheduler</h1>
 
 export default Navbar;
