@@ -20,19 +20,23 @@ function Navbar() {
           <div className="btn btn-ghost text-lg">
             <NavLink to={'/'}>Homepage</NavLink>
           </div>
-          <div className="btn btn-ghost text-lg">
-            <NavLink to={'/login'}>Sign In</NavLink>
-          </div>
-          <div className="btn btn-ghost text-lg">
-            <NavLink to={'/register'}>Sign In</NavLink>
-          </div>
-          {auth && (
+          {auth ? (
             <>
               <div className="btn btn-ghost text-lg">
                 <NavLink to={'/create'}>Create event</NavLink>
               </div>
               <div onClick={handleLogout} className="btn btn-ghost text-lg">
                 <NavLink to={'/login'}>Logout</NavLink>
+              </div>
+            </>
+          ) : (
+            <>
+              {' '}
+              <div className="btn btn-ghost text-lg">
+                <NavLink to={'/login'}>Sign In</NavLink>
+              </div>
+              <div className="btn btn-ghost text-lg">
+                <NavLink to={'/register'}>Sign Up</NavLink>
               </div>
             </>
           )}
