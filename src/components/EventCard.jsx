@@ -1,12 +1,18 @@
-import EventDetails from '../pages/EventDetails';
+import { useNavigate } from 'react-router-dom';
 
-function EventCard() {
+function EventCard({ event }) {
+  const navigate = useNavigate();
+
   return (
-    <div>
-      <p>Hello from the EventCard</p>
-      {/* Here we should have an entry point to navigate to the event details */}
-      <EventDetails />
+    <div className='border p-4 rounded-md shadow cursor-pointer hover:bg-gray-50 transition'
+      onClick={() => navigate(`/events/${event.id}`)}
+    >
+      <h2>{event.title}</h2>
+      <p>{event.location}</p>
+      <p>{event.description}</p>
+      <p>{new Date(event.date).toDateString()}</p>
     </div>
+    
   );
 }
 

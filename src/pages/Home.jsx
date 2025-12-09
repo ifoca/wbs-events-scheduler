@@ -21,11 +21,12 @@ function Home() {
       });
   }, []);
 
+  console.log("EVENT OBJECT:", events[0]);
+  
+
   return (
-    <div className="flex flex-col gap-4 p-4">
-      {events.map((event) => (
-        <EventCard key={event.id} event={event} />
-      ))}
+    <div className="p-8">
+      <EventsList events={events} />
     </div>
   );
 }
