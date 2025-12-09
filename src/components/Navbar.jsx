@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <header className="py-6 border-b border-gray-300 font-serif">
       <nav className="flex navbar navbar-center">
-        <div className="px-8 mr-auto text-black text-4xl font-serif">
+        <div className="px-8 mr-auto text-black text-4xl">
           <NavLink to={'/'}>Event Scheduler</NavLink>
         </div>
         <div className="flex content-end">

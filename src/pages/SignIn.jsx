@@ -53,7 +53,7 @@ const SignIn = () => {
             id="password"
             required
           ></input>
-          <button className="btn bg-primary" type="submit">
+          <button className="btn btn-ghost" type="submit">
             Login
           </button>
         </form>
