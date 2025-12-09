@@ -15,49 +15,64 @@ export const removeItemFromLocalStorage = (item) => {
 };
 
 export const login = async (email, pass) => {
-  try {
-    const res = await fetch('http://localhost:3001/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: pass,
-      }),
-    });
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-    const data = await res.json();
-    console.log(data);
-    return data;
-  } catch (err) {
-    console.error('Login failed:', err);
-    throw err;
+  const res = await fetch('http://localhost:3001/api/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+      password: pass,
+    }),
+  });
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
   }
+  const data = await res.json();
+  localStorage.setItem('access_token', data.token);
+  console.log(data);
+  return data;
 };
 
-export const checkUserEmail = async (email) => {
-  const res = await fetch('http://localhost:3001/api/users');
+// export const checkUserEmail = async (email) => {
+//   const res = await fetch('http://localhost:3001/api/users');
 
-  if (!res.ok) {
-    throw new Error('Could not fetch users.');
+//   if (!res.ok) {
+//     throw new Error('Could not fetch users.');
+//   }
+
+//   const data = await res.json();
+//   console.log(data);
+//   console.log(data.results);
+//   const results = data.results;
+
+//   const emailExists = results.find((result) => result.email === email);
+//   if (emailExists) {
+//     throw new Error('A user with this email already exists');
+//   }
+//   return true;
+// };
+
+export const register = async (email, pass) => {
+  const res = await fetch('http://localhost:3001/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+      password: pass,
+    }),
+  });
+  if (res.status === 409) {
+    throw new Error(`HTTP error, status: ${res.status}. User already exists`);
+  } else if (res.status === 400) {
+    throw new Error(`HTTP error, status: ${res.status}. Password must have at least 8 characters`);
+  } else if (!res.ok) {
+    throw new Error(`HTTP error, status: ${res.status}. Registration failed. Contact support.`);
   }
-
   const data = await res.json();
   console.log(data);
-  console.log(data.results);
-  const results = data.results;
-
-  const emailExists = results.find((result) => result.email === email);
-  if (emailExists) {
-    throw new Error('A user with this email already exists');
-  } else {
-    console.log('The checked user does not exist yet in the DB');
-  }
-
-  return true;
 };
 
 export const compareStrings = (a, b) => {
