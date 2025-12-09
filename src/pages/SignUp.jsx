@@ -1,61 +1,52 @@
 import useAuth from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { checkUserEmail, compareStrings } from '../utils/shared';
+import { compareStrings, register, login } from '../utils/shared';
 import { useState } from 'react';
 
 function SignUp() {
-  const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const [error, setError] = useState('');
   const { auth, setAuth } = useAuth();
 
   const handleRegistration = async (e) => {
     e.preventDefault();
     setError('');
+    const email = e.target.elements.email.value;
+    const password = e.target.elements.password.value;
+    const confirmation = e.target.elements.confirmation.value;
 
-    // const email = e.target.elements.email.value;
     try {
-      await checkUserEmail('alic@example.com');
-      const passwordsMatch = compareStrings('a', 'n');
+      if (email === '' || password === '' || confirmation === '') {
+        throw new Error('Credential fields cannot be empty.');
+      }
+      const passwordsMatch = compareStrings(password, confirmation);
       if (!passwordsMatch) {
-        console.log('I am here');
         setError('Passwords do not match');
         return;
       }
+      await register(email, password);
+      const userData = await login(email, password);
+      setAuth(userData.token);
+      navigate('/');
     } catch (err) {
-      console.log(err.message);
+      console.log('I got this error', err.message);
       setError(err.message);
     }
-    // console.log('check user Email:', userData);
-
-    // have function to register - POST request
-    // once signed up,
-    // call the login function and login directly?
-    // OR redirect to the login page?
-    // save to local storage
-    // set the auth
-    // redirect to homepage
-
-    // try {
-    //   const email = e.target.elements.email.value;
-    //   const password = e.target.elements.password.value;
-    //   if (!email || !password) {
-    //     throw new Error('Missing credentials');
-    //   }
-    //   const userData = await login(email, password);
-    //   console.log('Logged in:', userData);
-    //   localStorage.setItem('access_token', userData.token);
-    //   setAuth(userData.token);
-    console.log('Button was clicked');
-    console.log('Error state', error);
-    // navigate('/');
-    // } catch (error) {
-    //   console.log('Login failed', error);
-    // }
   };
 
   return (
     <div>
       <h1 className="text-center text-4xl">Sign Un</h1>
+
+      {error && (
+        <div className="m-auto w-2/3">
+          <p className="text-center text-red-400 text-lg p-2 mt-4 border border-red-200">
+            There was an error: {error}
+          </p>
+        </div>
+      )}
+
       {auth ? (
         <div className="flex flex-col gap-8 items-center m-4 p-4">
           <div>
@@ -66,14 +57,14 @@ function SignUp() {
           </button>
         </div>
       ) : (
-        <form className="flex flex-col gap-8 items-center m-4 p-4">
+        <form onSubmit={handleRegistration} className="flex flex-col gap-8 items-center m-4 p-4">
           <input
             id="email"
             email="email"
             type="text"
             placeholder="Email"
             className="p-2 border"
-            // required
+            required
           ></input>
           <input
             id="password"
@@ -81,7 +72,7 @@ function SignUp() {
             type="password"
             placeholder="Password"
             className="p-2 border"
-            // required
+            required
           ></input>
           <input
             id="confirmation"
@@ -89,9 +80,9 @@ function SignUp() {
             type="password"
             placeholder="Confirm password"
             className="p-2 border"
-            // required
+            required
           ></input>
-          <button onClick={handleRegistration} className="btn bg-neutral-content p-4" type="submit">
+          <button className="btn bg-neutral-content p-4" type="submit">
             Register user
           </button>
         </form>
