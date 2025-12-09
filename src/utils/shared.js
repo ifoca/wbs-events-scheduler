@@ -34,25 +34,6 @@ export const login = async (email, pass) => {
   return data;
 };
 
-// export const checkUserEmail = async (email) => {
-//   const res = await fetch('http://localhost:3001/api/users');
-
-//   if (!res.ok) {
-//     throw new Error('Could not fetch users.');
-//   }
-
-//   const data = await res.json();
-//   console.log(data);
-//   console.log(data.results);
-//   const results = data.results;
-
-//   const emailExists = results.find((result) => result.email === email);
-//   if (emailExists) {
-//     throw new Error('A user with this email already exists');
-//   }
-//   return true;
-// };
-
 export const register = async (email, pass) => {
   const res = await fetch('http://localhost:3001/api/users', {
     method: 'POST',
