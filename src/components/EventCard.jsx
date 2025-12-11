@@ -4,7 +4,8 @@ function EventCard({ event }) {
   const navigate = useNavigate();
 
   return (
-    <div className='border p-4 rounded-md shadow cursor-pointer hover:bg-gray-50 transition'
+    <div
+      className="border p-4 rounded-md shadow cursor-pointer hover:bg-gray-50 transition"
       onClick={() => navigate(`/events/${event.id}`)}
     >
       <h2>{event.title}</h2>
@@ -12,7 +13,6 @@ function EventCard({ event }) {
       <p>{event.description}</p>
       <p>{new Date(event.date).toDateString()}</p>
     </div>
-    
   );
 }
 
