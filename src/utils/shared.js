@@ -25,10 +25,11 @@ export const login = async (email, pass) => {
       password: pass,
     }),
   });
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
-  }
   const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.error || `Login failed: ${res.status}`);
+  }
   localStorage.setItem('access_token', data.token);
   return data;
 };
