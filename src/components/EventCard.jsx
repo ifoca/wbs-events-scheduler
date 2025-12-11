@@ -17,12 +17,3 @@ function EventCard({ event }) {
 }
 
 export default EventCard;
-
-/*
-
-         <Link 
-                        to={`/destinations/${(d.city).toLowerCase()}`} 
-                        className="card-title text-lg font-semibold hover:text-primary">
-                            {d.city}
-                        </Link>
-                        */
