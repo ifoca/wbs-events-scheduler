@@ -1,11 +1,13 @@
 import { login } from '../utils/shared';
 import useAuth from '../contexts/AuthContext';
+import useGeneralStates from '../contexts/GeneralContext';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const SignIn = () => {
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const { auth, setAuth } = useAuth();
+  const { error, setError, loading, setLoading } = useGeneralStates();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {

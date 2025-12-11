@@ -1,13 +1,15 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import LoadingMessage from '../components/LoadingMessage';
+import ErrorMessage from '../components/ErrorMessage';
+import useGeneralStates from '../contexts/GeneralContext';
 
 function EventDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { loading, setLoading, error, setError } = useGeneralStates();
 
   const [item, setItem] = useState(null);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
   const [image, setImage] = useState(null);
 
   const fetchEvent = async () => {
@@ -21,7 +23,6 @@ function EventDetails() {
       const data = await res.json();
       setItem(data);
     } catch (err) {
-      console.error(err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -39,45 +40,26 @@ function EventDetails() {
   }, [id]);
 
   if (loading || image === null) {
-    return (
-      <div className="m-auto w-2/3">
-        <p className="text-center text-lg p-2 mt-4 border">Loading event details...</p>
-      </div>
-    );
+    return <LoadingMessage />;
   }
 
   if (error) {
-    return (
-      <div className="m-auto w-2/3">
-        <p className="text-center text-red-400 text-lg p-2 mt-4 border border-red-200">
-          There was an error: <strong>{error}</strong>
-        </p>
-      </div>
-    );
+    return <ErrorMessage error={error} />;
   }
 
   if (!item) {
-    return (
-      <div className="m-auto w-2/3">
-        <p className="text-center text-red-400 text-lg p-2 mt-4 border border-red-200">
-          Event with id <strong>{id}</strong> could not be found.
-        </p>
-      </div>
-    );
+    return <ErrorMessage error={`Event with id ${id} could not be found `} />;
   }
 
   return (
-    <div className="w-11/12 max-w-5xl m-auto">
+    <div className="w-11/12 max-w-5xl m-auto mb-8 mt-8">
       <div className="card lg:card-side bg-base-100 shadow-sm">
         <figure>
           <img src={image} alt={item.title} />
         </figure>
         <div className="flex flex-col card-body max-w-lg gap-2">
-          <h2 className="flex card-title font-stretch-normal">
-            {item.title} @
-            <span>
-              <em>{item.location}</em>
-            </span>
+          <h2 className="card-title font-stretch-normal">
+            {item.title} @ {item.location}
           </h2>
           <h4 className="font-stretch-normal text-lg">
             Event date: {new Date(item.date).toDateString()}
