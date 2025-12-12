@@ -39,6 +39,19 @@ function SignUp() {
     }
   };
 
+  if (auth) {
+    return (
+      <>
+        <div className="flex flex-col gap-8 items-center m-4 p-4">
+          <ErrorMessage error={'You are already logged in'} />
+          <button className="btn p-4" onClick={() => navigate('/')}>
+            Go to Homepage
+          </button>
+        </div>
+      </>
+    );
+  }
+
   if (loading) {
     return <LoadingMessage />;
   }
@@ -55,16 +68,7 @@ function SignUp() {
         </div>
       )}
 
-      {auth ? (
-        <div className="flex flex-col gap-8 items-center m-4 p-4">
-          <div>
-            <p className="font-normal text-lg">You are already logged in.</p>
-          </div>
-          <button className="btn p-4" onClick={() => navigate('/')}>
-            Go to homepage
-          </button>
-        </div>
-      ) : (
+      {!auth && (
         <form onSubmit={handleRegistration} className="flex flex-col gap-8 items-center m-4 p-4">
           <input
             id="email"
