@@ -47,13 +47,6 @@ export const register = async (email, pass) => {
   });
   const data = await res.json();
 
-  // if (res.status === 409) {
-  //   throw new Error(data.error || `HTTP error, status: ${res.status}. User already exists`);
-  // } else if (res.status === 400) {
-  //   throw new Error(
-  //     data.error || `HTTP error, status: ${res.status}. Password must have at least 8 characters`
-  //   );
-  // } else
   if (!res.ok) {
     throw new Error(
       data.error || `HTTP error, status: ${res.status}. Registration failed. Contact support.`
