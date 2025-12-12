@@ -1,5 +1,11 @@
+import ErrorMessage from '../components/ErrorMessage';
+
 function ErrorPage() {
-  return <div>ErrorPage</div>;
+  return (
+    <>
+      <ErrorMessage error={'Page not found.'} />
+    </>
+  );
 }
 
 export default ErrorPage;

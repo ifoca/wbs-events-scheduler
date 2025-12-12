@@ -25,10 +25,11 @@ export const login = async (email, pass) => {
       password: pass,
     }),
   });
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
-  }
   const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.error || `Login failed: ${res.status}`);
+  }
   localStorage.setItem('access_token', data.token);
   return data;
 };
@@ -44,14 +45,13 @@ export const register = async (email, pass) => {
       password: pass,
     }),
   });
-  if (res.status === 409) {
-    throw new Error(`HTTP error, status: ${res.status}. User already exists`);
-  } else if (res.status === 400) {
-    throw new Error(`HTTP error, status: ${res.status}. Password must have at least 8 characters`);
-  } else if (!res.ok) {
-    throw new Error(`HTTP error, status: ${res.status}. Registration failed. Contact support.`);
-  }
   const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(
+      data.error || `HTTP error, status: ${res.status}. Registration failed. Contact support.`
+    );
+  }
   console.log(data);
 };
 

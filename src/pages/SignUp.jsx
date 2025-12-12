@@ -1,16 +1,19 @@
 import useAuth from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { compareStrings, register, login } from '../utils/shared';
-import { useState } from 'react';
+import LoadingMessage from '../components/LoadingMessage';
+import ErrorMessage from '../components/ErrorMessage';
+import useGeneralStates from '../contexts/GeneralContext';
 
 function SignUp() {
   const navigate = useNavigate();
 
-  const [error, setError] = useState('');
+  const { error, setError, loading, setLoading } = useGeneralStates();
   const { auth, setAuth } = useAuth();
 
   const handleRegistration = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError('');
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
@@ -30,21 +33,22 @@ function SignUp() {
       setAuth(userData.token);
       navigate('/');
     } catch (err) {
-      console.log('I got this error', err.message);
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <LoadingMessage />;
+  }
 
   return (
     <div>
       <h1 className="text-center text-4xl">Sign Un</h1>
 
       {error ? (
-        <div className="m-auto w-2/3">
-          <p className="text-center text-red-400 text-lg p-2 mt-4 border border-red-200">
-            There was an error: {error}
-          </p>
-        </div>
+        <ErrorMessage error={error} />
       ) : (
         <div className="w-2/3 items-center m-auto">
           <p className="text-center text-lg p-2 mt-4">Create an account to add new events.</p>
