@@ -61,7 +61,7 @@ const SignIn = () => {
             type="text"
             placeholder="Email"
             className="p-2 border"
-            // required
+            required
           ></input>
           <input
             name="password"
@@ -69,7 +69,7 @@ const SignIn = () => {
             placeholder="Password"
             className="p-2 border"
             id="password"
-            // required
+            required
           ></input>
           <button className="btn p-4" type="submit">
             Log in
