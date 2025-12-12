@@ -8,7 +8,7 @@ import useGeneralStates from '../contexts/GeneralContext';
 function CreateEvent() {
   const navigate = useNavigate();
   const { auth } = useAuth();
-  const { error, setError, setLoading } = useGeneralStates();
+  const { error, setError, loading, setLoading } = useGeneralStates();
 
   const [form, setForm] = useState({
     title: '',
