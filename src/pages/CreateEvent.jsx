@@ -45,10 +45,8 @@ function CreateEvent() {
       if (!res.ok) throw new Error(data.error || 'Failed to create event');
 
       // alert('Event created!');
-      console.log('Event created', res.status);
       navigate('/');
     } catch (err) {
-      console.error(err);
       setError(err.message);
       // alert('Error creating event');
     } finally {
